@@ -41,14 +41,14 @@ st.bar_chart(traffic_chart)
 # ===== PACKET SIZE TREND =====
 st.subheader("📈 Packet Length Trend")
 
-st.line_chart(data["Packet Length"])
+if "Packet Length" in data.columns:
+    st.line_chart(data["Packet Length"])
 
 st.markdown("---")
 
 # ===== NETWORK LOGS =====
 st.subheader("📄 Recent Network Logs")
-
-st.dataframe(data.tail(20))
+st.dataframe(data.tail(20), use_container_width=True)
 
 st.markdown("---")
 
@@ -58,7 +58,7 @@ st.subheader("🚨 Suspicious Traffic")
 suspicious = data[data["Status"] == "Suspicious"]
 
 if len(suspicious) > 0:
-    st.dataframe(suspicious.tail(10))
+    st.dataframe(suspicious.tail(10), use_container_width=True)
 else:
     st.success("No suspicious traffic detected")
 
@@ -81,34 +81,32 @@ st.subheader("🌍 Global Attack Map")
 
 locations = []
 
-all_ips = pd.concat([data["Source IP"], data["Destination IP"]]).unique()
+all_ips = pd.concat([data["Source IP"], data["Destination IP"]]).dropna().unique()
 
 for ip in all_ips:
 
     try:
+        ip_obj = ipaddress.ip_address(ip)
 
-        # skip private IPs
-        if ip.startswith("10.") or ip.startswith("192.168") or ip.startswith("172."):
+        # skip private/local IPs
+        if ip_obj.is_private:
             continue
 
-        res = requests.get(f"http://ip-api.com/json/{ip}", timeout=5).json()
+        res = requests.get(f"http://ip-api.com/json/{ip}", timeout=3).json()
 
-        if res["status"] == "success":
+        if res.get("status") == "success":
 
             locations.append({
                 "lat": res["lat"],
                 "lon": res["lon"]
             })
 
-    except Exception as e:
-        st.write("Error for IP:", ip)
+    except:
+        continue
 
-# DEBUG
-st.write("Locations found:", len(locations))
-
-# fallback test point
+# fallback if no public IP found
 if len(locations) == 0:
-    locations.append({"lat": 37.7749, "lon": -122.4194})
+    locations.append({"lat": 20.5937, "lon": 78.9629})  # India center
 
 map_df = pd.DataFrame(locations)
 
