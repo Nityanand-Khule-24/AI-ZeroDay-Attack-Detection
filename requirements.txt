@@ -1,11 +1,12 @@
-numpy
+streamlit
 pandas
+numpy
 scikit-learn
 joblib
 scapy
-streamlit
-streamlit-autorefresh
 requests
 matplotlib
 altair==4.2.2
+streamlit-autorefresh
+pyarrow
 standard-imghdr
