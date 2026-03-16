@@ -30,7 +30,7 @@ col1.metric("Total Packets", total_packets)
 col2.metric("Normal Traffic", normal_count)
 col3.metric("Suspicious Traffic", attack_count)
 
-st.divider()
+st.markdown("---")
 
 # ===== TRAFFIC DISTRIBUTION =====
 st.subheader("📊 Traffic Distribution")
@@ -43,14 +43,14 @@ st.subheader("📈 Packet Length Trend")
 
 st.line_chart(data["Packet Length"])
 
-st.divider()
+st.markdown("---")
 
 # ===== NETWORK LOGS =====
 st.subheader("📄 Recent Network Logs")
 
 st.dataframe(data.tail(20))
 
-st.divider()
+st.markdown("---")
 
 # ===== SUSPICIOUS TRAFFIC TABLE =====
 st.subheader("🚨 Suspicious Traffic")
@@ -62,7 +62,7 @@ if len(suspicious) > 0:
 else:
     st.success("No suspicious traffic detected")
 
-st.divider()
+st.markdown("---")
 
 # ===== LIVE ATTACK ALERT =====
 if len(suspicious) > 0:
@@ -74,7 +74,7 @@ if len(suspicious) > 0:
 
     st.error(f"🚨 LIVE ATTACK ALERT 🚨  \nSource: {src} → Target: {dst}")
 
-st.divider()
+st.markdown("---")
 
 # ===== GLOBAL ATTACK MAP =====
 st.subheader("🌍 Global Attack Map")
