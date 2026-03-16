@@ -245,7 +245,7 @@ Dashboard shows:
 
 Clone the repository:
 
-git clone https://github.com/YOUR_USERNAME/AI-ZeroDay-Detection.git
+git clone https://github.com/Nityanand-Khule-24/AI-ZeroDay-Detection.git
 
 Navigate to project folder:
 
