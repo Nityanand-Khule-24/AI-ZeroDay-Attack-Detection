@@ -3,15 +3,15 @@ import pandas as pd
 import requests
 import ipaddress
 from streamlit_autorefresh import st_autorefresh
-from auth import login, logout
+# from auth import login, logout
 
-# ===== LOGIN SYSTEM =====
-if "logged_in" not in st.session_state:
-    st.session_state["logged_in"] = False
+# # ===== LOGIN SYSTEM =====
+# if "logged_in" not in st.session_state:
+#     st.session_state["logged_in"] = False
 
-if not st.session_state["logged_in"]:
-    login()
-    st.stop()
+# if not st.session_state["logged_in"]:
+#     login()
+#     st.stop()
 
 # ===== PAGE SETTINGS =====
 st.set_page_config(page_title="AI Cyber Attack Detection", layout="wide")
@@ -51,9 +51,9 @@ col1, col2 = st.columns([8,1])
 with col1:
     st.title("🛡 AI Zero-Day Cyber Attack Detection Dashboard")
 
-with col2:
-    if st.button("Logout"):
-        logout()
+# with col2:
+#     if st.button("Logout"):
+#         logout()
 
 # ===== LOAD DATA =====
 try:
